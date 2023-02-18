@@ -9,5 +9,3 @@ workflows:
           args: pylint myapp/.
           requires:
             - poetry/build
-
-
