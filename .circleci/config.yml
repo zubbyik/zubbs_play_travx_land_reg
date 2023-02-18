@@ -1,19 +1,11 @@
-version: '2.1'
 orbs:
-  python: circleci/python@1.0.0
-jobs:
-  build:
-    executor: python/default
-    steps:
-      - checkout
-      - python/install-packages:
-          pkg-manager: poetry
-      - run:
-          command: |
-            poetry run pytest --version
-          name: Test it
+  poetry: frameio/poetry@0.23.0
+version: 2.1
 workflows:
-  main:
+  ci:
     jobs:
-      - build
-
+      - poetry/build
+      - poetry/shell:
+          args: pylint myapp/.
+          requires:
+            - poetry/build
